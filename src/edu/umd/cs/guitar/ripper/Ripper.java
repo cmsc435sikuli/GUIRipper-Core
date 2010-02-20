@@ -210,8 +210,7 @@ public class Ripper {
             return retGUI;
 
         } catch (Exception e) {
-            GUITARLog.log.error("Exception during ripping window ");
-            e.printStackTrace();
+            GUITARLog.log.error("Exception during ripping window ", e);
             return null;
         }
     }
