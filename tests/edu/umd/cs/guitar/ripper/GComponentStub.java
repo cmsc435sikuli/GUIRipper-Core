@@ -96,10 +96,13 @@ public class GComponentStub extends GComponent {
      *
      * @return m_getName
      */
-    @Override
     public String getName( ) {
 	return m_getName;
     }
+	
+	public boolean isEnable(){
+	return false;//needs to be changed to a real value
+	}
 
     /**
      * This function simulates a call to the abstract base class function
@@ -107,7 +110,6 @@ public class GComponentStub extends GComponent {
      *
      * @return m_getFullID
      */
-    @Override
     public String getFullID( ) {
 	return m_getFullID;
     }
@@ -210,4 +212,8 @@ public class GComponentStub extends GComponent {
     public ComponentType extractProperties( ) {
 	return m_extractProperties;
     }
+	
+	public String getTitle(){
+	return null;//needs to be changed to a real value
+	}
 }

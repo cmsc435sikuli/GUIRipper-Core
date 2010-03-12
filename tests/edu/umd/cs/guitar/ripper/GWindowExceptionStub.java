@@ -30,7 +30,6 @@ public class GWindowExceptionStub extends GWindow {
      *
      * @return "GWindowExceptionStub"
      */
-    @Override
     public String getFullID( ) {
 	return "GWindowExceptionStub";
     }
@@ -41,7 +40,6 @@ public class GWindowExceptionStub extends GWindow {
      *
      * @throws RuntimeException
      */
-    @Override
     public String getName( ) {
 	throw new RuntimeException( );
     }
@@ -122,4 +120,8 @@ public class GWindowExceptionStub extends GWindow {
     public boolean isValid( ) {
 	throw new RuntimeException( );
     }
+	
+	public String getTitle(){
+	return null;//needs to be changed to real value
+	}
 }

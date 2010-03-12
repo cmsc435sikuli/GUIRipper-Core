@@ -50,7 +50,6 @@ public class GComponentFilterStub extends GComponentFilter {
      *
      * @return m_isProcess
      */
-    @Override
     public boolean isProcess( GComponent component, GWindow window ) {
 	return m_isProcess;
     }
@@ -64,8 +63,11 @@ public class GComponentFilterStub extends GComponentFilter {
      *
      * @return m_ripComponent
      */
-    @Override
     public ComponentType ripComponent( GComponent component, GWindow window ) {
 	return m_ripComponent;
     }
+
+	public boolean isEnable(){
+		return false;//needs to be changed to a real value
+	}
 }

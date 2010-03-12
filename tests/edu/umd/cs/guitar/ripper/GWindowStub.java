@@ -103,7 +103,6 @@ public class GWindowStub extends GWindow {
      *
      * @return m_getFullID
      */
-    @Override
     public String getFullID( ) {
 	return m_getFullID;
     }
@@ -114,7 +113,6 @@ public class GWindowStub extends GWindow {
      *
      * @return m_getName
      */
-    @Override
     public String getName( ) {
 	return m_getName;
     }
@@ -208,4 +206,8 @@ public class GWindowStub extends GWindow {
     public boolean isValid( ) {
 	return m_isValid;
     }
+	
+	public String getTitle(){
+	return null;//needs to be changed to real value
+	}
 }
