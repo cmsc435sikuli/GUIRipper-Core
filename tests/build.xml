@@ -16,7 +16,7 @@
 
   <!-- Second Party Dependencies Included in Distribution -->
 
-  <fileset id="guitarlib.file.ref" dir="${shared.lib.dir}/${guitar.lib.dir}" erroronmissingdir="false">
+  <fileset id="guitarlib.file.ref" dir="${guitar.lib.dir}" erroronmissingdir="false">
     <include name="${guitarmodel.lib}" />
   </fileset >
 
@@ -75,7 +75,7 @@
   <target description="Build dependencies" name="build-deps">
     <ant antfile="../install/build.xml" target="dist" dir="${basedir}" inheritAll="false">
       <property name="debug" value="true" />
-      <property file="../install/build.properties" />
+      <property file="install/build.properties" />
     </ant>
   </target>
 
@@ -90,7 +90,7 @@
   <echo message="The JAR IS ${jar.dir}" />
 
     <cobertura-instrument datafile="${coverage.dir}/cobertura.ser" todir="${jar.dir}" >
-      <fileset dir="${dist.dir}/${dist.lib.dir}">
+      <fileset dir="${dist.lib.dir}">
 	<include name="${module}.jar" />
       </fileset>
     </cobertura-instrument>
@@ -129,6 +129,10 @@
       <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.dir}/cobertura.ser" />
 
       <classpath>
+	<path refid="cobertura.lib" />
+      </classpath>
+      
+      <classpath>
 	<pathelement location="${jar.dir}/${module}.jar" />
       </classpath>
       
@@ -143,7 +147,6 @@
       </classpath>
 
       <classpath>
-	<path refid="cobertura.lib" />
 	<path refid="junit.lib" />
       </classpath>
       
@@ -204,7 +207,7 @@
   <!-- Clean -->
 
   <target description="Clean the build" name="clean">
-    <ant antfile="install/build.xml" target="clean" dir=".." inheritAll="false" />
+    <ant antfile="../install/build.xml" target="clean" dir="." inheritAll="false" />
 
     <delete dir="${report.dir}" />
     <delete dir="${coverage.dir}" />
