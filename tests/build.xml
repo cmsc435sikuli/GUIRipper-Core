@@ -73,9 +73,10 @@
   <!-- Build the GUIRipper -->
 
   <target description="Build dependencies" name="build-deps">
-    <ant antfile="../install/build.xml" target="dist" dir="${basedir}" inheritAll="false">
+    <delete file="../../jars/GUIRipper-Core.jar" />
+    <ant antfile="build.xml" target="dist" dir="../install" inheritAll="false">
       <property name="debug" value="true" />
-      <property file="install/build.properties" />
+      <property file="..install/build.properties" />
     </ant>
   </target>
 
