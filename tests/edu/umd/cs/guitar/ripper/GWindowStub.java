@@ -208,6 +208,6 @@ public class GWindowStub extends GWindow {
     }
 	
 	public String getTitle(){
-	return null;//needs to be changed to real value
+	return getName();//needs to be changed to real value
 	}
 }

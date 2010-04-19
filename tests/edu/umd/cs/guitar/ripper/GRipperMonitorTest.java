@@ -128,45 +128,47 @@ public class GRipperMonitorTest extends TestCase {
      * 4. The GWindow instance in question is null.
      */
     public void test3( ) {
-	boolean l_bool;
+    	boolean l_bool;
+    	
+    	l_bool = m_stub.isRippedWindow( m_window1 );
+    
+    	assertEquals( l_bool, false );
 
-	l_bool = m_stub.isRippedWindow( m_window1 );
+    	l_bool = m_stub.isRippedWindow( m_window2 );
 
-	assertEquals( l_bool, false );
+    	assertEquals( l_bool, false );
 
-	l_bool = m_stub.isRippedWindow( m_window2 );
+    	m_stub.lRippedWindow.add( m_window1.getName( ));
 
-	assertEquals( l_bool, false );
+    	
+    	l_bool = m_stub.isRippedWindow( m_window1 );
 
-	m_stub.lRippedWindow.add( m_window1.getName( ));
+    	assertEquals( l_bool, true  );
 
-	l_bool = m_stub.isRippedWindow( m_window1 );
+    	l_bool = m_stub.isRippedWindow( m_window2 );
 
-	assertEquals( l_bool, true  );
+    	assertEquals( l_bool, false );
 
-	l_bool = m_stub.isRippedWindow( m_window2 );
+    	m_stub.lRippedWindow.add( m_window2.getName( ));
 
-	assertEquals( l_bool, false );
+    	l_bool = m_stub.isRippedWindow( m_window1 );
 
-	m_stub.lRippedWindow.add( m_window2.getName( ));
+    	assertEquals( l_bool, true  );
 
-	l_bool = m_stub.isRippedWindow( m_window1 );
+    	l_bool = m_stub.isRippedWindow( m_window2 );
 
-	assertEquals( l_bool, true  );
+    	assertEquals( l_bool, true  );
 
-	l_bool = m_stub.isRippedWindow( m_window2 );
+    	m_stub.lRippedWindow.clear( );
 
-	assertEquals( l_bool, true  );
+    	try {
+    		m_stub.isRippedWindow( null );
 
-	m_stub.lRippedWindow.clear( );
-
-	try {
-	    m_stub.isRippedWindow( null );
-
-	    fail( "Should raise an exception." );
-	}
-	catch( Exception e ) {
-	}
+    		fail( "Should raise an exception." );
+    	}
+    	catch( Exception e ) {
+    	}
+    	
     }
 
     /**

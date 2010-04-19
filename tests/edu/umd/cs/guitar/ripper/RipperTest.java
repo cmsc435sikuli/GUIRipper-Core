@@ -481,6 +481,7 @@ public class RipperTest extends TestCase {
 	/* Remove the first filter */
 
 	m_ripper.removeWindowFilter( m_wfilter1 );
+	//m_ripper.removeWindowFilter(m_wfilter1);
 
 	l_bool = l_wfilter.contains( m_wfilter1 );
 
@@ -1070,23 +1071,32 @@ public class RipperTest extends TestCase {
 	m_monitor1.initialize( );
 	m_monitor1.m_getRootWindows = l_list;
 
+	
+	
 	m_wfilter1.initialize( );
 	m_wfilter1.m_isProcess = true;
 	m_wfilter1.m_ripWindow = l_guit;
 	
 	m_ripper.monitor = m_monitor1;
 	m_ripper.lWindowFilter.addLast( m_wfilter1 );
-
+		
 	/* Grab some data for comparison */
 
 	int l_win_size = m_ripper.lRippedWindow.size( );
 	int l_gui_size = m_ripper.dGUIStructure.getGUI( ).size( );
+	
+	System.out.println(l_win_size);
+	System.out.println(l_gui_size);
 
 	/* Execute the test */
 
 	m_ripper.execute( );
 
 	/* Check the results */
+	
+	System.out.println("after="+l_win_size);
+	System.out.println("after="+l_gui_size);
+
 
 	assertEquals( m_ripper.lRippedWindow.size( ), l_win_size + 1 );
 	assertEquals( m_ripper.lRippedWindow.contains( m_window1 ), true );
@@ -1214,7 +1224,7 @@ public class RipperTest extends TestCase {
 	ComponentType  l_compt = new ComponentType ( );
 	GComponentStub l_gcomp = new GComponentStub( );
 
-	// l_gcomp.m_getChildren = new LinkedList<GComponent>( );
+	 l_gcomp.m_getChildren = new LinkedList<GComponent>( );
 
 	LinkedList<GWindow> l_list1 = new LinkedList<GWindow>( );
 
@@ -1242,10 +1252,12 @@ public class RipperTest extends TestCase {
 	m_ripper.monitor = m_monitor1;
 	m_ripper.lWindowFilter.addLast( m_wfilter1 );
 
+	
 	/* Execute the test */
 
 	ComponentType l_result = m_ripper.ripComponent( l_gcomp, m_window1 );
 
+	System.out.println(l_result.toString());
 	/* Check Test Sanity */
 
 	assertEquals( l_result != null, true );
@@ -1257,14 +1269,20 @@ public class RipperTest extends TestCase {
 	    assertSame( l_fcomp.getWindow( ), m_window1.extractWindow( ).getWindow( ));
 	    assertSame( l_fcomp.getComponent( ), l_compt );
 
+	    //System.out.println(l_result.toString());
+	    //System.out.println(l_result.getAttributes()==null);
+	    //System.out.println(l_result.getAttributes());
 	    PropertyType l_propt = l_result.getAttributes( ).getProperty( ).get( 0 );
 
 	    assertSame( l_propt.getName( ), GUITARConstants.INVOKELIST_TAG_NAME );
 	    assertEquals( l_propt.getValue( ).contains( m_window1.getFullID( )), true );
 
 	    assertEquals( m_ripper.dGUIStructure.getGUI( ).contains( l_guit ), true );
-	}
-	catch( Exception e ) {
+//}	catch(NullPointerException n){
+	//	n.printStackTrace();
+}
+    catch( Exception e ) {
+    	e.printStackTrace();
 	    fail( "Expected non-empty lists." );
 	}
 
@@ -1344,6 +1362,7 @@ public class RipperTest extends TestCase {
 	    assertEquals( l_propt.getValue( ).contains( m_window1.getFullID( )), true );
 	}
 	catch( Exception e ) {
+		e.printStackTrace();
 	    fail( "Expected non-empty lists." );
 	}
 

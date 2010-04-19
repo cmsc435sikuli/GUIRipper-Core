@@ -134,7 +134,14 @@ public class GRipperMonitorStub extends GRipperMonitor {
      * resetWindowCache.
      */
     @Override
-    public void resetWindowCache( ) { }
+    public void resetWindowCache( ) {
+    	if(m_getOpenedWindowCache != null){
+    		m_getOpenedWindowCache.clear();
+    	}
+    	if(m_getClosedWindowCache!= null){
+    		m_getClosedWindowCache.clear();
+    	}
+    }
 
     /**
      * This function simulates a call to the abstract base class function
@@ -143,7 +150,11 @@ public class GRipperMonitorStub extends GRipperMonitor {
      * @param window The GWindow instance in question.
      */
     @Override
-    public void closeWindow( GWindow window ) { }
+    public void closeWindow( GWindow window ) {
+    	
+    	this.m_getClosedWindowCache.add(window);
+    	System.out.println(m_getClosedWindowCache.size());
+    }
 
     /**
      * This function simulates a call to the abstract base class function
