@@ -244,15 +244,19 @@ public class Ripper {
 			if (monitor.isExpandable(component, window))
 				monitor.expandGUI(component);
 			else {
-				GUITARLog.log.debug("Component is Unexpandable");
+				GUITARLog.log.info("Component is Unexpandable");
 			}
 
+			
 			// Trigger terminal widget
 
 			LinkedList<GWindow> lClosedWindows = monitor.getClosedWindowCache();
 
 			String sWinID = window.getTitle();
 
+			
+			
+			
 			if (lClosedWindows.size() > 0) {
 				// if (monitor.isWindowClosed()) {
 
