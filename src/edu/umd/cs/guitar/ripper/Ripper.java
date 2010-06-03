@@ -212,9 +212,9 @@ public class Ripper {
 	 * @return
 	 */
 	public ComponentType ripComponent(GComponent component, GWindow window) {
-		GUITARLog.log.debug("");
-		GUITARLog.log.debug("----------------------------------");
-		GUITARLog.log.debug("Ripping component: ");
+		GUITARLog.log.info("");
+		GUITARLog.log.info("----------------------------------");
+		GUITARLog.log.info("Ripping component: ");
 
 		printComponentInfo(component, window);
 
@@ -450,7 +450,7 @@ public class Ripper {
 		sComponentInfo += "</FullComponent>"+ "\n";
 		sComponentInfo += "\n";
 
-		GUITARLog.log.debug(sComponentInfo);
+		GUITARLog.log.info(sComponentInfo);
 	}
 
 	/**
