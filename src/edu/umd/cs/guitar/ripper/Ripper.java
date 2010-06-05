@@ -38,6 +38,7 @@ import edu.umd.cs.guitar.model.data.GUIStructure;
 import edu.umd.cs.guitar.model.data.GUIType;
 import edu.umd.cs.guitar.model.data.ObjectFactory;
 import edu.umd.cs.guitar.model.wrapper.ComponentTypeWrapper;
+import edu.umd.cs.guitar.ripper.filter.GComponentFilter;
 import edu.umd.cs.guitar.util.GUITARLog;
 
 /**
@@ -217,6 +218,7 @@ public class Ripper {
 		GUITARLog.log.info("Ripping component: ");
 
 		printComponentInfo(component, window);
+		
 
 		// 1. Rip special/customized components
 		for (GComponentFilter cm : lComponentFilter) {
