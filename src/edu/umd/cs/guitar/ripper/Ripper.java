@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import edu.umd.cs.guitar.model.GHashcodeGenerator;
 import edu.umd.cs.guitar.model.GComponent;
 import edu.umd.cs.guitar.model.GUITARConstants;
 import edu.umd.cs.guitar.model.GWindow;
@@ -62,6 +63,34 @@ public class Ripper {
 	volatile Set<String> lRippedWindowTitles = new HashSet<String>();
 
 	GRipperMonitor monitor = null;
+
+	/**
+	 * @return the monitor
+	 */
+	public GRipperMonitor getMonitor() {
+		return monitor;
+	}
+
+	/**
+	 * Comparator for widgets
+	 */
+	GHashcodeGenerator hashcodeGenerator = null;
+
+	/**
+	 * @return the hashcodeGenerator
+	 */
+	public GHashcodeGenerator getHashcodeGenerator() {
+		return hashcodeGenerator;
+	}
+
+	/**
+	 * @param hashcodeGenerator
+	 *            the hashcodeGenerator to set
+	 */
+	public void setHashcodeGenerator(GHashcodeGenerator hashcodeGenerator) {
+		this.hashcodeGenerator = hashcodeGenerator;
+	}
+
 	LinkedList<GComponentFilter> lComponentFilter = new LinkedList<GComponentFilter>();
 	LinkedList<GWindowFilter> lWindowFilter = new LinkedList<GWindowFilter>();;
 
@@ -218,7 +247,6 @@ public class Ripper {
 		GUITARLog.log.info("Ripping component: ");
 
 		printComponentInfo(component, window);
-		
 
 		// 1. Rip special/customized components
 		for (GComponentFilter cm : lComponentFilter) {
@@ -237,6 +265,19 @@ public class Ripper {
 		try {
 
 			retComp = component.extractProperties();
+			ComponentTypeWrapper compA = new ComponentTypeWrapper(retComp);
+
+			GUIType retWindow = null;
+
+			if (window != null)
+				retWindow = window.extractGUIProperties();
+
+			long hashCode = hashcodeGenerator.getHashcodeFromData(retComp, retWindow);
+
+			compA.setID(GUITARConstants.COMPONENT_ID_PREFIX + hashCode);
+
+			retComp = compA.getDComponentType();
+
 			// 2.1 Try to perform action on the component
 			// to reveal more windows/components
 
@@ -249,16 +290,12 @@ public class Ripper {
 				GUITARLog.log.info("Component is Unexpandable");
 			}
 
-			
 			// Trigger terminal widget
 
 			LinkedList<GWindow> lClosedWindows = monitor.getClosedWindowCache();
 
 			String sWinID = window.getTitle();
 
-			
-			
-			
 			if (lClosedWindows.size() > 0) {
 				// if (monitor.isWindowClosed()) {
 
@@ -321,8 +358,7 @@ public class Ripper {
 
 						// Add invokelist property for the component
 						String sWindowTitle = gNewWin.getTitle();
-						ComponentTypeWrapper compA = new ComponentTypeWrapper(
-								retComp);
+						compA = new ComponentTypeWrapper(retComp);
 						compA.addValueByName(
 								GUITARConstants.INVOKELIST_TAG_NAME,
 								sWindowTitle);
@@ -407,7 +443,7 @@ public class Ripper {
 	}
 
 	/**
-	 * Print out debug info for the current component 
+	 * Print out debug info for the current component
 	 * 
 	 * <p>
 	 * 
@@ -416,15 +452,16 @@ public class Ripper {
 	 */
 	private void printComponentInfo(GComponent component, GWindow window) {
 		String sComponentInfo = "\n";
-		
-		sComponentInfo += "<FullComponent>"+ "\n";
+
+		sComponentInfo += "<FullComponent>" + "\n";
 		sComponentInfo += "\t<Window>" + "\n";
 		sComponentInfo += "\t\t<Attributes>" + "\n";
-		
+
 		sComponentInfo += "\t\t\t<Property>" + "\n";
 		sComponentInfo += "\t\t\t\t<Name>" + GUITARConstants.TITLE_TAG_NAME
 				+ "</Name>" + "\n";
-		sComponentInfo += "\t\t\t\t<Value>" + window.getTitle() + "</Value>" + "\n";
+		sComponentInfo += "\t\t\t\t<Value>" + window.getTitle() + "</Value>"
+				+ "\n";
 		sComponentInfo += "\t\t\t</Property> " + "\n";
 		sComponentInfo += "\t\t</Attributes>" + "\n";
 		sComponentInfo += "\t</Window>" + "\n";
@@ -432,7 +469,7 @@ public class Ripper {
 
 		sComponentInfo += "\t<Component>" + "\n";
 		sComponentInfo += "\t\t<Attributes>" + "\n";
-		
+
 		sComponentInfo += "\t\t\t<Property>" + "\n";
 		sComponentInfo += "\t\t\t\t<Name>" + GUITARConstants.TITLE_TAG_NAME
 				+ "</Name>" + "\n";
@@ -444,12 +481,12 @@ public class Ripper {
 		sComponentInfo += "\t\t\t<Property>" + "\n";
 		sComponentInfo += "\t\t\t\t<Name>" + GUITARConstants.CLASS_TAG_NAME
 				+ "</Name>" + "\n";
-		sComponentInfo += "\t\t\t\t<Value>" + component.getClassVal() + "</Value>"
-				+ "\n";
+		sComponentInfo += "\t\t\t\t<Value>" + component.getClassVal()
+				+ "</Value>" + "\n";
 		sComponentInfo += "\t\t\t</Property>" + "\n";
 		sComponentInfo += "\t\t</Attributes>" + "\n";
 		sComponentInfo += "\t</Component>" + "\n";
-		sComponentInfo += "</FullComponent>"+ "\n";
+		sComponentInfo += "</FullComponent>" + "\n";
 		sComponentInfo += "\n";
 
 		GUITARLog.log.info(sComponentInfo);
