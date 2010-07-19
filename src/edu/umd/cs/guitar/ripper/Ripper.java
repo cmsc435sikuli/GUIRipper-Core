@@ -272,7 +272,7 @@ public class Ripper {
 			if (window != null)
 				retWindow = window.extractGUIProperties();
 
-			long hashCode = hashcodeGenerator.getHashcodeFromData(retComp, retWindow);
+			long hashCode = hashcodeGenerator.getHashcodeFromGUI(component,window);
 
 			compA.setID(GUITARConstants.COMPONENT_ID_PREFIX + hashCode);
 
