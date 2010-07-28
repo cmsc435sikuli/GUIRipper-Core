@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 
 import edu.umd.cs.guitar.model.GHashcodeGenerator;
 import edu.umd.cs.guitar.model.GComponent;
+import edu.umd.cs.guitar.model.GIDGenerator;
 import edu.umd.cs.guitar.model.GUITARConstants;
 import edu.umd.cs.guitar.model.GWindow;
 import edu.umd.cs.guitar.model.data.ComponentListType;
@@ -74,22 +75,38 @@ public class Ripper {
 	/**
 	 * Comparator for widgets
 	 */
-	GHashcodeGenerator hashcodeGenerator = null;
+	//GHashcodeGenerator hashcodeGenerator = null;
+	
+	GIDGenerator idGenerator = null;
 
 	/**
-	 * @return the hashcodeGenerator
+	 * @return the iDGenerator
 	 */
-	public GHashcodeGenerator getHashcodeGenerator() {
-		return hashcodeGenerator;
+	public GIDGenerator getIDGenerator() {
+		return idGenerator;
 	}
 
 	/**
-	 * @param hashcodeGenerator
-	 *            the hashcodeGenerator to set
+	 * @param iDGenerator the iDGenerator to set
 	 */
-	public void setHashcodeGenerator(GHashcodeGenerator hashcodeGenerator) {
-		this.hashcodeGenerator = hashcodeGenerator;
+	public void setIDGenerator(GIDGenerator iDGenerator) {
+		idGenerator = iDGenerator;
 	}
+
+//	/**
+//	 * @return the hashcodeGenerator
+//	 */
+//	public GHashcodeGenerator getHashcodeGenerator() {
+//		return hashcodeGenerator;
+//	}
+
+//	/**
+//	 * @param hashcodeGenerator
+//	 *            the hashcodeGenerator to set
+//	 */
+//	public void setHashcodeGenerator(GHashcodeGenerator hashcodeGenerator) {
+//		this.hashcodeGenerator = hashcodeGenerator;
+//	}
 
 	LinkedList<GComponentFilter> lComponentFilter = new LinkedList<GComponentFilter>();
 	LinkedList<GWindowFilter> lWindowFilter = new LinkedList<GWindowFilter>();;
@@ -185,7 +202,15 @@ public class Ripper {
 			this.dGUIStructure.getGUI().add(gRoot);
 		}
 
-		// 4. Clean up
+		// 4. Generate ID for widgets 
+		
+		if(this.idGenerator==null){
+			GUITARLog.log.warn("No ID generator assigned");
+		}else{
+			idGenerator.generateID(dGUIStructure);
+		}
+		
+		// 5. Clean up
 		monitor.cleanUp();
 	}
 
@@ -272,9 +297,9 @@ public class Ripper {
 			if (window != null)
 				retWindow = window.extractGUIProperties();
 
-			long hashCode = hashcodeGenerator.getHashcodeFromGUI(component,window);
-
-			compA.setID(GUITARConstants.COMPONENT_ID_PREFIX + hashCode);
+//			long hashCode = hashcodeGenerator.getHashcodeFromGUI(component,window);
+//
+//			compA.setID(GUITARConstants.COMPONENT_ID_PREFIX + hashCode);
 
 			retComp = compA.getDComponentType();
 
