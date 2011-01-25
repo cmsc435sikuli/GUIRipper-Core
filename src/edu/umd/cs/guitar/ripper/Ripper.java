@@ -289,20 +289,6 @@ public class Ripper {
 		ComponentType retComp = null;
 		try {
 
-			retComp = component.extractProperties();
-			ComponentTypeWrapper compA = new ComponentTypeWrapper(retComp);
-
-			GUIType retWindow = null;
-
-			if (window != null)
-				retWindow = window.extractGUIProperties();
-
-//			long hashCode = hashcodeGenerator.getHashcodeFromGUI(component,window);
-//
-//			compA.setID(GUITARConstants.COMPONENT_ID_PREFIX + hashCode);
-
-			retComp = compA.getDComponentType();
-
 			// 2.1 Try to perform action on the component
 			// to reveal more windows/components
 
@@ -314,6 +300,12 @@ public class Ripper {
 			else {
 				GUITARLog.log.info("Component is Unexpandable");
 			}
+
+			// Extract properties from the current component
+			retComp = component.extractProperties();
+			ComponentTypeWrapper compA = new ComponentTypeWrapper(retComp);
+
+			retComp = compA.getDComponentType();
 
 			// Trigger terminal widget
 
@@ -428,7 +420,6 @@ public class Ripper {
 			// its child window
 			List<GComponent> gChildrenList = component.getChildren();
 			int nChildren = gChildrenList.size();
-			int i = 0;
 
 			// Debug
 
@@ -444,17 +435,12 @@ public class Ripper {
 
 			// End debug
 
-			while (i < nChildren) {
-
-				GComponent gChild = gChildrenList.get(i++);
+			for ( GComponent gChild : gChildrenList ) {
 				ComponentType guiChild = ripComponent(gChild, window);
 
 				if (guiChild != null)
 					((ContainerType) retComp).getContents()
 							.getWidgetOrContainer().add(guiChild);
-
-				if (nChildren < gChildrenList.size())
-					nChildren = gChildrenList.size();
 			}
 
 		} catch (Exception e) {
