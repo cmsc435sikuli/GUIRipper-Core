@@ -55,6 +55,7 @@
   </path>
 
   <path id="classpath">
+    <fileset file="${args4j}" />
     <fileset file="${log4j}" />
   </path>
 
