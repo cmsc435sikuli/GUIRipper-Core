@@ -54,6 +54,10 @@
     <fileset file="${root.dir}/GUITARModel-Core/install/build.xml" />
   </path>
 
+  <path id="classpath">
+    <fileset file="${log4j}" />
+  </path>
+
   <import file="../../shared/ant/default.xml" />
 
 </project>
