@@ -7,8 +7,6 @@ import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
 
 import edu.umd.cs.guitar.model.GIDGenerator;
 import edu.umd.cs.guitar.model.IO;
@@ -49,6 +47,7 @@ public abstract class RipperMain {
 
         try {
             setupEnv();
+            ripper.execute();
         } catch (Exception e) {
             GUITARLog.log.error("RipperMain: ", e);
         }
@@ -82,7 +81,7 @@ public abstract class RipperMain {
         GUITARLog.log.info("Log file: " + config.LOG_FILE);
     }
 
-    public void setupEnv() {
+    protected void setupEnv() {
         // Load configuration file from disk
         Configuration conf = (Configuration) IO.readObjFromFile(
             config.CONFIG_FILE, Configuration.class);
@@ -97,7 +96,7 @@ public abstract class RipperMain {
                 GUITARConstants.ignoredWidgetSignature);
         }
 
-        GRipperMonitor monitor = createMonitor(config);
+        GRipperMonitor monitor = createMonitor();
         ripper.setMonitor(monitor);
 
         GIDGenerator idGenerator = getIdGenerator();
@@ -119,8 +118,7 @@ public abstract class RipperMain {
         }
     }
 
-    protected abstract GRipperMonitor
-    createMonitor(GRipperConfiguration config);
+    protected abstract GRipperMonitor createMonitor();
 
     protected abstract GIDGenerator getIdGenerator();
 }
