@@ -61,4 +61,11 @@
 
   <import file="../../shared/ant/default.xml" />
 
+  <target name="build" depends="common.build">
+    <!-- Copy over gripper launcher program -->
+    <copy file="${root.dir}/guitar/launchers/gripper.template"
+          tofile="${root.dir}/gripper" failonerror="false" />
+    <chmod file="${root.dir}/gripper" perm="775" />
+  </target>
+
 </project>
