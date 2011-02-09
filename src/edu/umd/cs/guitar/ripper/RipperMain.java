@@ -35,9 +35,11 @@ public abstract class RipperMain {
     }
 
     private Ripper ripper;
+    private String log4jFile;
 
     public void execute() {
-        System.setProperty("file.name", config.LOG_FILE);
+        log4jFile = config.LOG_FILE;
+        System.setProperty("file.name", log4jFile);
         PropertyConfigurator.configure(GUITARConstants.LOG4J_PROPERTIES_FILE);
 
         GUITARLog.log = Logger.getLogger(this.getClass().getSimpleName());
