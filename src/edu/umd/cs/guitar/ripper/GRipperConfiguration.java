@@ -24,6 +24,8 @@ public class GRipperConfiguration {
         opts.addOption( null, "open-win-file", true, "widget log file" );
         opts.addOption( "c", "config-file", true, "configuration file for the ripper defining terminal and ignored components/windows" );
         opts.addOption( "d", "delay", true, "delay between actions" );
+        opts.addOption( "a", "arguments", true, "arguments for the application under test, separated by a colon (:)" );
+        opts.addOption( "i", "initial-wait", true, "initial waiting time for the application to get stabilized before being ripped" );
         opts.addOption( "h", "help", false, "Print this message" );
     }
 
@@ -43,11 +45,16 @@ public class GRipperConfiguration {
         LOG_WIDGET_FILE = cmd.getOptionValue("open-win-file", "log_widget.xml");
         CONFIG_FILE = cmd.getOptionValue("config-file", "configuration.xml");
         DELAY = Integer.parseInt(cmd.getOptionValue("delay", "5000"));
+        ARGUMENT_LIST = cmd.getOptionValue("args", "");
+        INITIAL_WAITING_TIME = Integer.parseInt(
+            cmd.getOptionValue("initial-wait", "500"));
     }
 
-    public static String GUI_FILE;
-    public static String LOG_FILE;
-    public static String LOG_WIDGET_FILE;
-    public static String CONFIG_FILE;
-    public static int DELAY = 5000;
+    public String GUI_FILE;
+    public String LOG_FILE;
+    public String LOG_WIDGET_FILE;
+    public String CONFIG_FILE;
+    public int DELAY;
+    public String ARGUMENT_LIST;
+    public int INITIAL_WAITING_TIME;
 }

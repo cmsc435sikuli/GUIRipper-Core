@@ -28,7 +28,7 @@ import edu.umd.cs.guitar.util.GUITARLog;
     monitor, the id generator, and the widget configuration file.
  */
 public abstract class RipperMain {
-    private GRipperConfiguration config;
+    protected GRipperConfiguration config;
 
     public RipperMain(GRipperConfiguration config) {
         this.config = config;
