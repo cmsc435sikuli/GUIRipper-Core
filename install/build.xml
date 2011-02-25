@@ -44,14 +44,14 @@
 
    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
-<project name="GUIRipper-Core" basedir=".." default="help">
+<project name="GUIRipper-Core-Sikuli" basedir=".." default="help">
 
-  <property name="module" value="GUIRipper-Core" />
+  <property name="module" value="GUIRipper-Core-Sikuli" />
   <import file="../../shared/ant/properties.xml" />
   
-  <property name="dependency_list" value="GUITARModel-Core" />
+  <property name="dependency_list" value="GUITARModel-Core-Sikuli" />
   <path id="dependency_list.buildfiles">
-    <fileset file="${root.dir}/GUITARModel-Core/install/build.xml" />
+    <fileset file="${root.dir}/GUITARModel-Core-Sikuli/install/build.xml" />
   </path>
 
   <path id="classpath">
