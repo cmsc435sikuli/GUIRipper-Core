@@ -43,7 +43,7 @@ public class GRipperConfiguration {
         LOG_FILE = cmd.getOptionValue("log-file", Util.getTimeStamp()+".log");
         LOG_WIDGET_FILE = cmd.getOptionValue("open-win-file", "log_widget.xml");
         CONFIG_FILE = cmd.getOptionValue("config-file", "configuration.xml");
-        DELAY = Integer.parseInt(cmd.getOptionValue("delay", "5000"));
+        DELAY = Integer.parseInt(cmd.getOptionValue("delay", "500"));
         ARGUMENT_LIST = cmd.getOptionValue("args", "");
         INITIAL_WAITING_TIME = Integer.parseInt(
             cmd.getOptionValue("initial-wait", "500"));
