@@ -212,6 +212,7 @@ public class Ripper {
 		
 		// 5. Clean up
 		monitor.cleanUp();
+		//System.exit(0);
 	}
 
 	/**

@@ -81,6 +81,7 @@ public abstract class RipperMain {
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
         GUITARLog.log.info("Ripping Elapsed: " + df.format(nDuration));
         GUITARLog.log.info("Log file: " + config.LOG_FILE);
+		System.exit(0);
     }
 
     protected void setupEnv() {
