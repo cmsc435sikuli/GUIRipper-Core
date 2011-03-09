@@ -295,12 +295,15 @@ public class Ripper {
 
 			// clear window opened cache before performing actions
 			monitor.resetWindowCache();
+			component.captureImage("before_click");
 
 			if (monitor.isExpandable(component, window))
 				monitor.expandGUI(component);
 			else {
 				GUITARLog.log.info("Component is Unexpandable");
 			}
+
+			component.captureImage("after_click");
 
 			// Extract properties from the current component
 			retComp = component.extractProperties();
