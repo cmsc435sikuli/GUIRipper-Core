@@ -260,7 +260,8 @@ public class Ripper {
 
 	/**
 	 * 
-	 * Rip a component
+	 * Rip a component. Edited by Sikuli team in Spring 2011 to take
+	 * screenshots of the component both before and after it is expanded.
 	 * 
 	 * <p>
 	 * 
