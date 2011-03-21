@@ -24,6 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JRadioButton;
+
 import org.apache.log4j.Logger;
 
 import edu.umd.cs.guitar.model.GHashcodeGenerator;
@@ -296,15 +298,19 @@ public class Ripper {
 
 			// clear window opened cache before performing actions
 			monitor.resetWindowCache();
-			component.captureImage("before_click");
+			
 
-			if (monitor.isExpandable(component, window))
+			if (monitor.isExpandable(component, window)){
+				component.captureImage("before_click");
 				monitor.expandGUI(component);
+				component.captureImage("after_click");
+			}
 			else {
+				component.captureImage("unexpandable");
 				GUITARLog.log.info("Component is Unexpandable");
 			}
 
-			component.captureImage("after_click");
+			
 
 			// Extract properties from the current component
 			retComp = component.extractProperties();
