@@ -299,21 +299,24 @@ public class Ripper {
 			// clear window opened cache before performing actions
 			monitor.resetWindowCache();
 			
-
+			String type = "";
+			
 			if (monitor.isExpandable(component, window)){
 				component.captureImage("before_click");
 				monitor.expandGUI(component);
 				component.captureImage("after_click");
+				type = "expandable";
 			}
 			else {
 				component.captureImage("unexpandable");
 				GUITARLog.log.info("Component is Unexpandable");
+				type = "unexpandable";
 			}
 
 			
 
 			// Extract properties from the current component
-			retComp = component.extractProperties();
+			retComp = component.extractProperties(type);
 			ComponentTypeWrapper compA = new ComponentTypeWrapper(retComp);
 
 			retComp = compA.getDComponentType();
