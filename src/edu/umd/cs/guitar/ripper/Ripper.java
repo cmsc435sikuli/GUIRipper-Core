@@ -301,14 +301,17 @@ public class Ripper {
 			
 			String type = "";
 			
+			//if it is expandable, take two pictures
 			if (monitor.isExpandable(component, window)){
 				type = "expandable";
 				if (!component.captureImage("before_click"))
 					type = null;
+				//click to change appearance
 				monitor.expandGUI(component);
 				if (!component.captureImage("after_click"))
 					type = null;
 			}
+			//otherwise, just take one
 			else {
 				type = "unexpandable";
 				if (!component.captureImage("unexpandable"))
