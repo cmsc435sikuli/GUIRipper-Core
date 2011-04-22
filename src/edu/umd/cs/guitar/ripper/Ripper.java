@@ -302,15 +302,18 @@ public class Ripper {
 			String type = "";
 			
 			if (monitor.isExpandable(component, window)){
-				component.captureImage("before_click");
-				monitor.expandGUI(component);
-				component.captureImage("after_click");
 				type = "expandable";
+				if (!component.captureImage("before_click"))
+					type = null;
+				monitor.expandGUI(component);
+				if (!component.captureImage("after_click"))
+					type = null;
 			}
 			else {
-				component.captureImage("unexpandable");
-				GUITARLog.log.info("Component is Unexpandable");
 				type = "unexpandable";
+				if (!component.captureImage("unexpandable"))
+					type = null;
+				GUITARLog.log.info("Component is Unexpandable");
 			}
 
 			
