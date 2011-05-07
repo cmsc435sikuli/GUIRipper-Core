@@ -298,25 +298,15 @@ public class Ripper {
 
 			// clear window opened cache before performing actions
 			monitor.resetWindowCache();
+					
+			String type = "";	
 			
-			String type = "";
-			
-			if (monitor.isExpandable(component, window)){
-				component.captureImage("before_click");
-				monitor.expandGUI(component);
-				component.captureImage("after_click");
-				type = "expandable";
-			}
-			else {
-				component.captureImage("unexpandable");
-				GUITARLog.log.info("Component is Unexpandable");
-				type = "unexpandable";
-			}
-
-			
+			// Take screenshots
+			type = takePictures(component, window);
 
 			// Extract properties from the current component
 			retComp = component.extractProperties(type);
+			
 			ComponentTypeWrapper compA = new ComponentTypeWrapper(retComp);
 
 			retComp = compA.getDComponentType();
@@ -468,6 +458,40 @@ public class Ripper {
 	}
 
 	/**
+	 * Take screenshots of the specified component
+	 * 
+	 * <p>
+	 * 
+	 * @param component
+	 * @param window
+	 */
+	public String takePictures(GComponent component, GWindow window) {
+
+		String type = "";
+		
+		// if component is expandable, take two pictures
+		if (monitor.isExpandable(component, window)) {
+			type = "expandable";
+			if (!component.captureImage("before_click"))
+				type = null;
+			// click to change appearance
+			monitor.expandGUI(component);
+			if (!component.captureImage("after_click"))
+				type = null;
+		}
+	
+		// otherwise, just take one
+		else {
+			type = "unexpandable";
+			if (!component.captureImage("unexpandable"))
+				type = null;
+			GUITARLog.log.info("Component is Unexpandable");
+		}
+		return type;
+	}
+	
+	
+	/**
 	 * Print out debug info for the current component
 	 * 
 	 * <p>
@@ -588,5 +612,4 @@ public class Ripper {
 	public GUIStructure getResult() {
 		return dGUIStructure;
 	}
-
 }
